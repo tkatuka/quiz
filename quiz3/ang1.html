@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  </head>
+
+<body ng-app="myApp" ng-controller="todoCtrl">
+
+<div class="row">
+<div class="col-sm-4">
+</div>
+<div class="col-sm-4">
+
+<div class="container">
+
+<h2 class="text-justify">My Family History List</h2>
+<img src="familyTree.jpg" width=450>
+
+<br>
+
+<br>
+
+<form ng-submit="toAdd()" class="form-inline">
+    <input type="text" ng-model="personInput" placeholder="Person">
+    <input type="text" ng-model="fatherInput" placeholder="Father">
+    <input type="text" ng-model="motherInput" placeholder="Mother">
+    <input type="submit" value="Add New">
+</form>
+
+
+<br>
+
+<div ng-repeat="x in todoList">
+    <input type="checkbox" ng-model="x.done"> <span ng-bind="x.todoText"></span>
+</div>
+<br>
+<p><button ng-click="remove()">Remove marked</button></p>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('todoCtrl', function($scope) {
+    $scope.todoList = [];
+
+    $scope.toAdd = function() {
+        $scope.todoList.push({todoText:$scope.personInput + ', ' + $scope.fatherInput + ', ' + $scope.motherInput, done:false});
+        $scope.personInput = "";
+	$scope.fatherInput = "";
+	$scope.motherInput = "";
+    };
+
+    $scope.remove = function() {
+        var oldList = $scope.todoList;
+        $scope.todoList = [];
+        angular.forEach(oldList, function(x) {
+            if (!x.done) $scope.todoList.push(x);
+        });
+    };
+});
+</script>
+
+</div>
+</div>
+
+<div class="col-sm-4"></div>
+</div>
+
+</body>
+</html>
+
+
